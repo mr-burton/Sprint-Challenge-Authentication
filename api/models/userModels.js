@@ -8,7 +8,24 @@ const UserSchema = Schema({
   // create your user schema here.
   // username: required, unique and lowercase
   // password: required
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    unique: true,
+    required: true,
+    maxLength: 20,
+    validate: checkLength,
+    msg: 'be calm and make a stronger password'
+  }
 });
+
+function checkLength(password) {
+  return password.length > 8;
+}
 
 UserSchema.pre('save', function(next) {
   // https://github.com/kelektiv/node.bcrypt.js#usage
